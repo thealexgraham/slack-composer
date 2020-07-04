@@ -1,6 +1,6 @@
-amperbot
+slack-composer
 -------------------
-amperbot is a Slack bot for creating and sharing AI music using the Amper API.
+slack-composer is a Slack bot for creating and sharing AI music using the Amper API.
 
 Built to deploy on a Heroku instance using the following buildpack:
 
