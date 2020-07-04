@@ -1,0 +1,87 @@
+name:                slack-composer
+version:             0.10
+synopsis:            A slackbot that uses the Amper API to create customized music.
+description:         Runs a Servant API to interface with a Slack slash command bot
+homepage:            http://alexgraham.net
+category:            Slack Bot
+license:             BSD3
+license-file:        LICENSE
+author:              Alex Graham
+maintainer:          alex@alexgraham.net
+build-type:          Simple
+cabal-version:       >=1.10
+tested-with:
+  GHC==8.0.2
+  GHC==8.2.2
+  GHC==8.4.4
+  GHC==8.6.5
+  GHC==8.8.2
+
+executable slack-composer
+  main-is:             Main.hs
+  default-language:    Haskell2010
+  ghc-options:         -Wall -pgmL markdown-unlit
+  hs-source-dirs:      src
+
+  -- Packages `servant` depends on.
+  -- We don't need to specify bounds here as this package is never released.
+  build-depends:
+      base >= 4.7 && <5
+    , aeson
+    , attoparsec
+    , base-compat
+    , bytestring
+    , containers
+    , directory
+    , http-api-data
+    , http-client
+    , http-client-tls
+    , http-media
+    , http-types
+    , mtl
+    , network
+    , network-uri
+    , postgresql-simple
+    , string-conversions
+    , text
+    , transformers
+    , wai
+    , warp
+
+  -- Servant dependencies
+  build-depends:
+       servant
+     , servant-server
+     , servant-client
+     , servant-docs
+
+  -- Other dependencies: Lower bound around what is in the latest Stackage LTS.
+  -- Here can be exceptions if we really need features from the newer versions.
+  build-depends:
+      blaze-html   >= 0.9.0.1 && < 0.10
+    , blaze-markup >= 0.8.0.0 && < 0.9
+    , cookie       >= 0.4.3   && < 0.5
+    , js-jquery    >= 3.3.1   && < 3.4
+    , cron         >= 0.7.0   && < 0.8
+    , http-conduit
+    , lucid        >= 2.9.11  && < 2.10
+    , random       >= 1.1     && < 1.2
+    , servant-js   >= 0.9     && < 0.10
+    , time         >= 1.6.0.1 && < 1.10
+
+  -- For legacy tools, we need to specify build-depends too
+  build-depends: markdown-unlit >= 0.5.0 && <0.6
+  build-tool-depends: markdown-unlit:markdown-unlit >= 0.5.0 && <0.6
+
+--test-suite spec
+--  type: exitcode-stdio-1.0
+--  ghc-options: -Wall
+--  default-language: Haskell2010
+--  hs-source-dirs: test
+--  main-is: Spec.hs
+--  other-modules: JavascriptSpec
+--  build-depends: base
+--               , tutorial
+--               , hspec
+--               , hspec-wai
+--               , string-conversions
