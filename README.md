@@ -1,5 +1,7 @@
 slack-composer
 -------------------
+[slack-composer](https://user-images.githubusercontent.com/3069010/86536712-d16b8a80-beb7-11ea-9186-56e69d46bb29.png)
+
 slack-composer is a Slack bot for creating and sharing AI music using the Amper API.
 
 Built to deploy on a Heroku instance using the following buildpack:
