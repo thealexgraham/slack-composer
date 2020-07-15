@@ -7,6 +7,7 @@ import           SlackComposer.Slack.API
 
 import           Test.Hspec
 
+import           Data.Monoid
 import           Network.HTTP.Client       hiding (Proxy,port)
 import qualified Network.Wai.Handler.Warp  as Warp
 
@@ -29,8 +30,9 @@ composeSpec = around withSlackApp $ do
 
     describe "POST /compose" $ do
         it "should respond with a 'composing...' message" $ \prt -> do
-            result <- runClientM (compose testSlackPayload) (clientEnv prt)
-            result `shouldBe` (Right $ "Thanks! Composing some *example text*...")
+            let pl = testSlackPayload
+            result <- runClientM (compose pl) (clientEnv prt)
+            result `shouldBe` (Right $ "Thanks! Composing some *" <> spText pl <> "*...")
 
 testSlackPayload :: SlackPayload
 testSlackPayload = SlackPayload "token" "id" "my.name" "command" "example text" "http://localhost/response_url"
