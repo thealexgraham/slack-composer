@@ -3,6 +3,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedLists #-}
 
 module SlackComposer.Slack.API where
 
@@ -84,6 +85,15 @@ instance FromForm SlackPayload where
     <*> parseUnique "command"      f
     <*> parseUnique "text"         f
     <*> parseUnique "response_url" f
+
+instance ToForm SlackPayload where
+    toForm (SlackPayload tk uid un c txt url) =
+        [ ("token"       ,T.pack tk)
+        , ("user_id"     ,T.pack uid)
+        , ("user_name"   ,un)
+        , ("command"     ,c)
+        , ("text"        ,txt)
+        , ("response_url",url) ]
 
 slackAPI :: Proxy SlackAPI
 slackAPI = Proxy
